@@ -115,7 +115,7 @@ snap_size2 = 2.0;
 *bottom();
 *bottom_frame();
 *bottom_holes();
-bottom_side_holes();  /* apm */
+*bottom_side_holes();  /* apm */
 
 translate([0, -10, wall_h_middle]) rotate([180, 0, 0]) {
 *middle();
@@ -127,7 +127,7 @@ translate([0, -10-y-10, z]) rotate([180, 0, 0]){
 *top_osh();
 *top_header();
 *top_osh_header();
-top_holes();
+*top_holes();
 
 }
 
@@ -170,15 +170,35 @@ module middle_wall() {
 	frame_height = z + 1.5;
 	translate([-w2 - wall, -w2 - wall, 0]) 
 	difference(){
-		cube([2*wall, y + 2 * w2 + 2 , wall_h_middle]);
+		cube([2*wall, y + 2 * w2 + 2 *wall, wall_h_middle]);
 		translate([2*wall,0,0])		
 		{rotate([0,-atan(wall/wall_h_middle),0]) 	
-		cube([wall, y + 2 * w2 + 2 , wall_h_middle]);}
+		cube([wall, y + 2 * w2 + 2*wall , 2*wall_h_middle]);}
 		}
 				
-	translate([x + w2 + w4, -w2 - wall, 0]) cube([wall, y + 2 * w2 + 2 * wall, wall_h_middle]);
-	translate([-w2, -w2 - wall, 0]) cube([x + 2 * w2 + w4, wall, wall_h_middle]);
-	translate([-w2, y + w2, 0]) cube([x + 2 * w2 + w4, wall, wall_h_middle]);
+	translate([x + w2 -wall + w4, -w2 - wall, 0]) 
+	difference(){
+		cube([2*wall, y + 2 * w2 + 2 * wall, wall_h_middle]);
+		translate([-wall,0,0])
+		rotate([0,atan(wall/wall_h_middle),0]) 	
+		cube([wall, y + 2 * w2 + 2 *wall, 2 * wall_h_middle]);
+		}
+	translate([-w2, -w2 - wall, 0]) 
+	difference(){
+		cube([x + 2 * w2 + w4, 2*wall, wall_h_middle]);
+		translate([0,2*wall,0])
+		rotate([atan(wall/wall_h_middle),0,0])
+		cube([x + 2 * w2 + w4, 2*wall, 2*wall_h_middle]);
+	}
+	translate([-w2, y + w2 -wall, 0]) 
+	difference(){
+		cube([x + 2 * w2 + w4, wall*2, wall_h_middle]);
+		translate([0,-2*wall,0])
+		rotate([-atan(wall/wall_h_middle),0,0])
+		cube([x + 2 * w2 + w4, wall*2, 2*wall_h_middle]);
+	}
+
+
 }
 
 
