@@ -29,7 +29,7 @@ wall_h_top = 4; /** Height of the walls of the top case part */
 
 w2 = 1.8; // additional room around the board (0.8 original)
 w3 = 0.2; // spacing for the top part to fit into the bottom part
-w4 = 15; // extra spacing at the back
+w4 = 20; // extra spacing at the back
 
 
 /* Pins parameters *************************************************/
