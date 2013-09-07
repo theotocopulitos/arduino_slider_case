@@ -75,14 +75,20 @@ header4_y = 2.0 * inch;
 usb_x = 15;
 usb_y = 31.9;
 usb_z = 5.2;
-usb_width = 12.5;
-usb_height = 12.5; /** apm **/
+usb_width = 14.5;
+usb_height = 14.5; /** apm **/
 
 power_x = 7;
 power_y = 3.5;
 power_z = 5;
-power_width = 10;
-power_height = 10;  /** apm **/
+power_width = 12;
+power_height = 12;  /** apm **/
+
+connector_diameter = 16;
+led_diameter = 6;
+IR_h = 8;
+IR_w = 9;
+
 
 /* Additional holes *********************************************************/
 
@@ -260,10 +266,15 @@ module side_connector() {
 }	
 
 module side_led() {
-	translate([x+w4, y/5 ,wall_h_bottom - wall_h_top - connector_diameter])
+	translate([x+w4, 2*y/5 ,(wall_h_bottom - wall_h_top - connector_diameter)*2/3])
 	rotate([0,90,0]) 
 	cylinder(h = 10, r=led_diameter/2);
 }
+	
+module side_IR() {
+	translate([x + w3/2 + w2,-w2-wall,wall_h_bottom/2]) 
+	cube(IR_w,IR_w,IR_h);
+	}
 
 
 module bottom_side_holes_connector() {
@@ -282,6 +293,7 @@ module bottom_side_holes_connector() {
 			}
 		side_connector();
 		side_led();
+		side_IR();
 		}
 
 	}

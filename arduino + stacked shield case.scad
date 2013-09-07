@@ -89,8 +89,8 @@ power_height = 15;  /** apm ** - oversized so they are open above on the bottom 
 
 connector_diameter = 16;
 led_diameter = 6;
-IR_h = 9;
-IR_w = 8;
+IR_h = 8;
+IR_w = 9;
 
 
 /** When using the bottom with holes, this are the parameters for the holes
