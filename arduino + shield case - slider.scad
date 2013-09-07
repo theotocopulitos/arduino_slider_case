@@ -24,12 +24,12 @@ z = 1; 				/** Thickness of the top and bottom sides of the case **/
 wall = 1;				/** The thickness of the wall */
 wall_h_bottom = 60;	/** Height of the walls of the bottom case part */
 							/* original:  wall_h_bottom = 16; */
-wall_h_top = 4; /** Height of the walls of the top case part */							
+wall_h_top = 8; /** Height of the walls of the top case part */							
 
 
 w2 = 7; // additional room around the board (0.8 original)
 w3 = 0.6; // spacing for the top part to fit into the bottom part
-w4 = 3; // extra spacing at the back
+w4 = 30; // extra spacing at the back
 
 
 /* Pins parameters *************************************************/
@@ -121,7 +121,9 @@ snap_size2 = 2.0;
 *bottom_frame();
 *bottom_holes();*
 *bottom_side_holes();  /* apm */
-bottom_side_holes_connector();  /* apm */
+*bottom_side_holes_connector();  /* apm */
+
+
 
 translate([0, -5* w2, z]) rotate([180, 0, 0]){
 
@@ -179,7 +181,7 @@ module power(){
 ***/
 
 /*** with circular top for printing without supports */
-	translate([-5, power_y, z  + power_z]) 
+	translate([-w2-wall-10, power_y, z  + power_z]) 
 	union() {
 		cube([power_x, power_width, power_height]);
 		translate([0,power_width/2,power_height]) rotate([0,90,0]) 
@@ -196,7 +198,7 @@ translate([-5, usb_y, z  + usb_z]) cube([usb_x, usb_width, usb_height]);
 ***/
 
 /*** with circular top for printing without supports*/
-	translate([-5, usb_y, z  + usb_z]) 
+	translate([-w2-wall-5, usb_y, z  + usb_z]) 
 	union() {
 			cube([usb_x, usb_width, usb_height]); 
 			translate([0,usb_width/2,usb_height]) rotate([0,90,0]) 
@@ -215,10 +217,10 @@ module bottom() {
 		translate([w2,0,0]) power();
 		usb();
 	}
-	pin(pin_x = pin1_x, pin_y = pin1_y, force_include = true);
-	pin(pin_x = pin2_x, pin_y = pin2_y, force_include = true);
-	pin(pin_x = pin3_x, pin_y = pin3_y, force_include = true);
-	pin(pin_x = pin4_x, pin_y = pin4_y, force_include = false);
+	pin(pin_x = pin1_x-w2, pin_y = pin1_y, force_include = true);
+	pin(pin_x = pin2_x-w2, pin_y = pin2_y, force_include = true);
+	pin(pin_x = pin3_x-w2, pin_y = pin3_y, force_include = true);
+	pin(pin_x = pin4_x-w2, pin_y = pin4_y, force_include = false);
 }
 
 module bottom_frame() {
@@ -232,8 +234,8 @@ module bottom_holes() {
 	w = y * holes_percent / 100;
 	difference() {
 		bottom();
-		for (a = [holes_border : holes_spacing : x - holes_border]) {
-			translate([a, (y - w) / 2, -1]) cube([holes_size, w, z + 2]);
+		for (a = [holes_border : holes_spacing : x - holes_border - w2]) {
+			translate([a-w2, (y - w) / 2, -1]) cube([holes_size, w, z + 2]);
 		}
 	}
 }
@@ -246,7 +248,7 @@ module bottom_side_holes() {
 		bottom();
 	union (){
 		for (a = [holes_border : holes_spacing : x - holes_border]) {
-			translate([a, (y - w) / 2, -1]) cube([holes_size, w, z + 2]);
+			translate([a-w2, (y - w) / 2, -1]) cube([holes_size, w, z + 2]);
 		}
 		for (a = [holes_border : holes_spacing : x - holes_border]) {
 			translate([a, y - -w2-wall ,(wall_h_bottom/3) / 2]) cube([holes_size, z+2 ,wall_h_bottom/3*2]);
@@ -283,7 +285,7 @@ module bottom_side_holes_connector() {
 		bottom();
 	union (){
 		for (a = [holes_border : holes_spacing : x - holes_border]) {
-			translate([a, (y - w) / 2, -1]) cube([holes_size, w, z + 2]);
+			translate([a-w2, (y - w) / 2, -1]) cube([holes_size, w, z + 2]);
 		}
 		for (a = [holes_border : holes_spacing : x - holes_border]) {
 			translate([a, y - -w2-wall ,(wall_h_bottom/3) / 2]) cube([holes_size, z+2 ,wall_h_bottom/3*2]);
