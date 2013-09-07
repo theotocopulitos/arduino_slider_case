@@ -21,7 +21,7 @@ y = 2.1 * inch;
 /* Box parameters **************************************************/
 
 z = 1; 				/** Thickness of the top and bottom sides of the case **/
-wall = 1;				/** The thickness of the wall */
+wall = 1.2;				/** The thickness of the wall */
 wall_h_bottom = 60;	/** Height of the walls of the bottom case part */
 							/* original:  wall_h_bottom = 16; */
 wall_h_top = 8; /** Height of the walls of the top case part */							
@@ -121,7 +121,7 @@ snap_size2 = 2.0;
 *bottom_frame();
 *bottom_holes();*
 *bottom_side_holes();  /* apm */
-*bottom_side_holes_connector();  /* apm */
+bottom_side_holes_connector();  /* apm */
 
 
 
@@ -131,7 +131,7 @@ translate([0, -5* w2, z]) rotate([180, 0, 0]){
 *top_osh();
 *top_header();
 *top_osh_header();
-top_holes();
+*top_holes();
 *top_holes_connector();
 
 }
@@ -217,10 +217,10 @@ module bottom() {
 		translate([w2,0,0]) power();
 		usb();
 	}
-	pin(pin_x = pin1_x-w2, pin_y = pin1_y, force_include = true);
-	pin(pin_x = pin2_x-w2, pin_y = pin2_y, force_include = true);
-	pin(pin_x = pin3_x-w2, pin_y = pin3_y, force_include = true);
-	pin(pin_x = pin4_x-w2, pin_y = pin4_y, force_include = false);
+	pin(pin_x = pin1_x, pin_y = pin1_y, force_include = true);
+	pin(pin_x = pin2_x, pin_y = pin2_y, force_include = true);
+	pin(pin_x = pin3_x, pin_y = pin3_y, force_include = true);
+	pin(pin_x = pin4_x, pin_y = pin4_y, force_include = false);
 }
 
 module bottom_frame() {
