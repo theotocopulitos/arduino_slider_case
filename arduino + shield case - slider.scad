@@ -21,15 +21,15 @@ y = 2.1 * inch;
 /* Box parameters **************************************************/
 
 z = 1; 				/** Thickness of the top and bottom sides of the case **/
-wall = 1.2;				/** The thickness of the wall */
+wall = 1;				/** The thickness of the wall */
 wall_h_bottom = 60;	/** Height of the walls of the bottom case part */
 							/* original:  wall_h_bottom = 16; */
 wall_h_top = 4; /** Height of the walls of the top case part */							
 
 
-w2 = 1.8; // additional room around the board (0.8 original)
-w3 = 0.2; // spacing for the top part to fit into the bottom part
-w4 = 20; // extra spacing at the back
+w2 = 7; // additional room around the board (0.8 original)
+w3 = 0.6; // spacing for the top part to fit into the bottom part
+w4 = 3; // extra spacing at the back
 
 
 /* Pins parameters *************************************************/
@@ -120,10 +120,10 @@ snap_size2 = 2.0;
 *bottom();
 *bottom_frame();
 *bottom_holes();*
-bottom_side_holes();  /* apm */
+*bottom_side_holes();  /* apm */
 bottom_side_holes_connector();  /* apm */
 
-translate([0, -10, z]) rotate([180, 0, 0]){
+translate([0, -5* w2, z]) rotate([180, 0, 0]){
 
 *top();
 *top_osh();
@@ -212,7 +212,7 @@ module bottom() {
 	difference() {
 		wall();
 		snap(h = snap_size2, z = wall_h_bottom - wall_h_top + snap_size1 - snap_size2 + 0.2);
-		power();
+		translate([w2,0,0]) power();
 		usb();
 	}
 	pin(pin_x = pin1_x, pin_y = pin1_y, force_include = true);
