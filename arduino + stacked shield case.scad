@@ -87,8 +87,10 @@ power_height = 15;  /** apm ** - oversized so they are open above on the bottom 
 
 /* Additional holes *********************************************************/
 
-connector_diameter = 15.5;
-led_diameter = 4;
+connector_diameter = 16;
+led_diameter = 6;
+IR_h = 9;
+IR_w = 8;
 
 
 /** When using the bottom with holes, this are the parameters for the holes
@@ -115,7 +117,7 @@ snap_size2 = 2.0;
 *bottom();
 *bottom_frame();
 *bottom_holes();
-*bottom_side_holes();  /* apm */
+bottom_side_holes();  /* apm */
 
 translate([0, -10, wall_h_middle]) rotate([180, 0, 0]) {
 *middle();
@@ -127,7 +129,7 @@ translate([0, -10-y-10, z]) rotate([180, 0, 0]){
 *top_osh();
 *top_header();
 *top_osh_header();
-*top_holes();
+top_holes();
 
 }
 
@@ -340,12 +342,16 @@ module side_connector() {
 }	
 
 module side_led() {
-	translate([x+w4, y/5 ,wall_h_middle - wall_h_top - connector_diameter])
+	translate([x+w4, 2*y/5 ,(wall_h_middle - wall_h_top - connector_diameter)*3/2])
 	rotate([0,90,0]) 
 	cylinder(h = 10, r=led_diameter/2);
 }
 
 
+module side_IR() {
+	translate([x + w3/2 + w2,-w2-wall,wall_h_middle/2]) 
+	cube(IR_w,IR_w,IR_h);
+	}
 
 module middle() {
 //	translate([-w2, -w2, 0]) cube([x + 2 * w2, y + 2 *w2, z]);
@@ -362,6 +368,7 @@ module middle() {
 		snap(h = snap_size2, z = wall_h_middle - wall_h_top + snap_size1 - snap_size2 + 0.2);
 		side_connector();
 		side_led();
+		side_IR();
 	}
 }
 
