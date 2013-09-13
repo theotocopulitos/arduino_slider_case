@@ -21,7 +21,7 @@ y = 2.1 * inch;
 /* Box parameters **************************************************/
 
 z = 1; 				/** Thickness of the top and bottom sides of the case **/
-wall = 1.2;				/** The thickness of the wall */
+wall = 2.2;				/** The thickness of the wall */
 wall_h_bottom = 60;	/** Height of the walls of the bottom case part */
 							/* original:  wall_h_bottom = 16; */
 wall_h_top = 8; /** Height of the walls of the top case part */							
@@ -84,16 +84,14 @@ power_z = 5;
 power_width = 12;
 power_height = 12;  /** apm **/
 
-connector_diameter = 16;
-led_diameter = 6;
-IR_h = 8;
-IR_w = 9;
 
 
 /* Additional holes *********************************************************/
 
-connector_diameter = 15.5;
-led_diameter = 4;
+connector_diameter = 17;
+led_diameter = 6;
+IR_h = 8;
+IR_w = 9;
 
 
 /** When using the bottom with holes, this are the parameters for the holes
@@ -263,12 +261,13 @@ module bottom_side_holes() {
 
 module side_connector() {
 	translate([x+w4, 3*y/4 ,wall_h_bottom - wall_h_top - connector_diameter])
+	scale([1,1.2,1]) // to compensate for printing errors - remove if printing is ok
 	rotate([0,90,0]) 
 	cylinder(h = 10, r=connector_diameter/2);
 }	
 
 module side_led() {
-	translate([x+w4, 2*y/5 ,(wall_h_bottom - wall_h_top - connector_diameter)*2/3])
+	translate([x+w4, y/3 ,(wall_h_bottom - wall_h_top - connector_diameter)*2/3])
 	rotate([0,90,0]) 
 	cylinder(h = 10, r=led_diameter/2);
 }
