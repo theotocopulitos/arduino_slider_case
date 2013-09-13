@@ -119,7 +119,7 @@ snap_size2 = 2.0;
 *bottom_frame();
 *bottom_holes();*
 *bottom_side_holes();  /* apm */
-bottom_side_holes_connector();  /* apm */
+*bottom_side_holes_connector();  /* apm */
 
 
 
@@ -129,7 +129,7 @@ translate([0, -5* w2, z]) rotate([180, 0, 0]){
 *top_osh();
 *top_header();
 *top_osh_header();
-*top_holes();
+top_holes();
 *top_holes_connector();
 
 }
