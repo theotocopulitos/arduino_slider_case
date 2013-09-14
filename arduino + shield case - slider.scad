@@ -34,8 +34,8 @@ w4 = 30; // extra spacing at the back
 
 /* Pins parameters *************************************************/
 
-pin_d1 = 2.8; 			/** Diameter of the top part of the board holder pins **/
-pin_d2 = 5.0;			/** Diameter of the bottom part of the board holder pins **/
+pin_d1 = 2; 			/** Diameter of the top part of the board holder pins **/
+pin_d2 = 7.0;			/** Diameter of the bottom part of the board holder pins **/
 
 pin1_x = 0.6 * inch;
 pin1_y = 2.0 * inch + 0.3;
@@ -155,7 +155,7 @@ module pin(pin_x, pin_y, force_include) {
 
 module wall() {
 	frame_height = z + 1.5;
-	translate([-w2 - wall, -w2 - wall, 0]) cube([wall, y + 2 * w2 + 2 , wall_h_bottom]);
+	translate([-w2 - wall, -w2 - wall, 0]) cube([wall, y + 2 * w2 + 2 * wall, wall_h_bottom]);
 	translate([-w2 - wall, -w2 - wall, 0]) cube([2 * wall, y + 2 * w2 + 2 * wall, frame_height]);
 	translate([x + w2 + w4, -w2 - wall, 0]) cube([wall, y + 2 * w2 + 2 * wall, wall_h_bottom]);
 	translate([x + w2 - wall + w4, -w2 - wall, 0]) cube([2 * wall, y + 2 * w2 + 2 * wall, frame_height]);
@@ -249,10 +249,10 @@ module bottom_side_holes() {
 			translate([a-w2, (y - w) / 2, -1]) cube([holes_size, w, z + 2]);
 		}
 		for (a = [holes_border : holes_spacing : x - holes_border]) {
-			translate([a, y - -w2-wall ,(wall_h_bottom/3) / 2]) cube([holes_size, z+2 ,wall_h_bottom/3*2]);
+			translate([a, y +w2 ,(wall_h_bottom/3) / 2]) cube([holes_size, wall*2 ,wall_h_bottom/3*2]);
 			}
 		for (a = [holes_border : holes_spacing : x - holes_border]) {
-			translate([a, -w2-wall ,(wall_h_bottom/3) / 2]) cube([holes_size, z+2 ,wall_h_bottom/3*2]);
+			translate([a, -w2-wall ,(wall_h_bottom/3) / 2]) cube([holes_size, wall*2 ,wall_h_bottom/3*2]);
 			}
 		}
 
@@ -287,17 +287,19 @@ module bottom_side_holes_connector() {
 			translate([a-w2, (y - w) / 2, -1]) cube([holes_size, w, z + 2]);
 		}
 		for (a = [holes_border : holes_spacing : x - holes_border]) {
-			translate([a, y - -w2-wall ,(wall_h_bottom/3) / 2]) cube([holes_size, z+2 ,wall_h_bottom/3*2]);
+			translate([a, y +w2 ,(wall_h_bottom/3) / 2]) cube([holes_size, wall*2 ,wall_h_bottom/3*2]);
 			}
 		for (a = [holes_border : holes_spacing : x - holes_border]) {
-			translate([a, -w2-wall ,(wall_h_bottom/3) / 2]) cube([holes_size, z+2 ,wall_h_bottom/3*2]);
+			translate([a, -w2-wall ,(wall_h_bottom/3) / 2]) cube([holes_size, wall*2 ,wall_h_bottom/3*2]);
 			}
 		side_connector();
 		side_led();
 		side_IR();
 		}
 
+
 	}
+
 }
 
 
